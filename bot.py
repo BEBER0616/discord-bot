@@ -1,11 +1,10 @@
 import discord
 from discord.ext import commands
 import os
-
-# ===== Flask Keep Alive =====
 from flask import Flask
 from threading import Thread
 
+# ===== Flask 서버 =====
 app = Flask(__name__)
 
 @app.route("/")
@@ -16,14 +15,12 @@ def run():
     app.run(host="0.0.0.0", port=8080)
 
 def keep_alive():
-    t = Thread(target=run)
-    t.start()
+    Thread(target=run).start()
 
 keep_alive()
-# ===========================
+# ======================
 
-# 토큰 불러오기
-TOKEN = os.getenv("TOKEN")
+TOKEN = os.getenv("TOKEN")  # Render 환경변수
 
 intents = discord.Intents.default()
 intents.message_content = True
